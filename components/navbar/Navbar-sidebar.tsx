@@ -46,8 +46,13 @@ export const NavbarSidebar = ({items, open, onOpenChange}: Props) => {
             return (
               <Link key={item.href} 
                 href={item.href} 
-                className="w-full text-left p-4 flex items-center font-medium text-gray-800 hover:bg-[#ff7011] hover:text-white text-base"
-                onClick={() => onOpenChange(false)}>
+                className={cn(
+                  "w-full text-left p-4 flex items-center font-medium text-base transition-colors",
+                  isActive
+                    ? "bg-[#324F3B] text-white"
+                    : "text-gray-800 hover:bg-[#324F3B] hover:text-white"
+                )}
+                 onClick={() => onOpenChange(false)}>
                 {item.children}
               </Link> )
            } )}
