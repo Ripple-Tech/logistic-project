@@ -23,6 +23,7 @@ const NavbarItems = [
     { children: "About", href: "/about-us" },
     { children: "Contact", href: "/contact" },
      { children: "Create Shipment", href: "/create-shipment" },
+      { children: "Dashboard", href: "/dashboard" },
 ]
 
 const NavbarItem = ({href, children, isActive}: NavbarItemProps) => {

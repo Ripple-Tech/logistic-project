@@ -8,7 +8,7 @@ import { usePathname, useRouter } from 'next/navigation'
 export const sidebarLinks = [
     {
       imgURL: "/home.svg",
-      route: "/admin",
+      route: "/dashboard",
       label: "Home",
     },
     {
