@@ -3,8 +3,8 @@
 import  Frame1  from "@/assets/frame1.jpg";
 import  Frame2  from "@/assets/frame1.jpg";
 import  Frame3  from "@/assets/frame1.jpg";
-import  Frame4  from "@/assets/frame1.png";
-import  Frame5  from "@/assets/frame1.png";
+import  Frame4  from "@/assets/frame1.jpg";
+import  Frame5  from "@/assets/frame1.jpg";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 
