@@ -1,5 +1,5 @@
 "use client"
-import  About  from "@/assets/aboutus.png";
+
 import  Frame1  from "@/assets/frame1.jpg";
 import  Frame2  from "@/assets/frame1.jpg";
 import  Frame3  from "@/assets/frame1.jpg";
@@ -35,15 +35,6 @@ const AboutUs = () => {
   <section className="">
     <div className='flex flex-col mb-11 gap-10 '>
     
-    
-    <div className="relative w-full aspect-[3/1] overflow-hidden">
-  <Image
-    src={About}
-    alt="Trainer"
-    fill
-    className="object-cover object-center"
-  />
-</div>
 
       <h2 className='px-10 text-center text-3xl md:text-[54px] md:leading-[60px] font-bold tracking-tighter bg-gradient-to-b from-black to-[#01963f] text-transparent bg-clip-text mt-1'>
     Our Story </h2>
