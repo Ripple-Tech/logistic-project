@@ -18,7 +18,7 @@ export const Header = ({
          <h1 className={cn(
             "text-3xl font-semibold", font.className
          )}>
-          NYSC Forum
+          DHDL
          </h1> 
          <p className="text-muted-foreground text-sm">
             {label}
