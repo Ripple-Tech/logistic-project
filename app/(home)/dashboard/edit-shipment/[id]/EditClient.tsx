@@ -61,7 +61,7 @@ export default function EditOrderClient({ orderId }: EditOrderClientProps) {
 
       if (data?.success) {
         setSuccess("Order updated successfully!");
-        router.push("/dashboard/orders"); // redirect to order list
+        router.push("/dashboard"); // redirect to order list
       } else {
         setError("Failed to update order.");
       }

@@ -40,7 +40,7 @@ const ClientOrderPage: React.FC<ClientOrderPageProps> = ({ allOrder }) => {
           className="text-sm flex flex-row border border-[#222]/10 px-3 py-3 gap-4 rounded-lg"
           key={order.id}
         >
-          <Link href={`/admin/edit-order/${order.recieptId}`} className="flex flex-col">
+          <Link href={`/dashboard/edit-shipment/${order.recieptId}`} className="flex flex-col">
             <p className="mt-2 text-sm text-gray-800 font-medium">{order.recieptId}</p>
             <p
               className={`mt-2 text-[10px] ${
