@@ -57,7 +57,7 @@ async function sendMail({ to, subject, body }: MailOptions) {
 
   try {
     const sendResult = await transport.sendMail({
-      from: `"Ripplez" <${SMTP_EMAIL}>`,
+      from: `"DHDL" <${SMTP_EMAIL}>`,
       to,
       subject,
       html: body

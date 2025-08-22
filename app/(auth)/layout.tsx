@@ -7,8 +7,8 @@ import { auth } from "@/auth";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "NYSCForum - National Youth Service Corps Forum",
-  description: "Number one Forum for all Nigerian serving Coppers",
+  title: "DHDL",
+  description: "Number one Logistics Platform for all your delivery needs",
 };
 
 export default async function RootLayout({
