@@ -1,4 +1,4 @@
-import { OrderTimeline } from "./generated/prisma";
+
 
 export interface Option {
     label: string;
@@ -41,6 +41,13 @@ export interface BlogFormData {
     longitude: string;
     latitude: string;
   };
+  export type OrderTimeline = {
+  id: string;        
+  orderId: string;   
+  text: string;
+  createDate: string; 
+};
+
   export interface Order {
   id: string;
   userId: string;
@@ -50,6 +57,7 @@ export interface BlogFormData {
   progress: number;
   recieptId?: string | null;
   reciept?: Reciept | null;
-  timeline?: OrderTimeline[]; // Optional, can be strongly typed later
+  timeline?: OrderTimeline[]; 
 }
+
   

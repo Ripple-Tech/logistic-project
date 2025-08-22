@@ -1,59 +1,70 @@
-'use client';
+"use client";
 
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
-import { useEffect, useState } from 'react';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import 'leaflet-defaulticon-compatibility';
-import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import { useEffect } from "react";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 
 interface MapProps {
-  selectedPosition: { latitude: string; longitude: string;  magnitude?: number; } | null;
+  selectedPosition: { latitude: string; longitude: string; magnitude?: number } | null;
 }
 
 const icon = L.icon({
-  iconUrl: '/placeholder.png',
+  iconUrl: "/placeholder.png",
   iconSize: [38, 38],
 });
 
-const MapComponent: React.FC<{ center: [number, number]; zoom: number }> = ({ center, zoom }) => {
+const MapUpdater: React.FC<MapProps> = ({ selectedPosition }) => {
   const map = useMap();
 
   useEffect(() => {
-    map.setView(center, zoom, {
-      animate: true,
-    });
-  }, [center, zoom, map]);
+    if (selectedPosition) {
+      const newCenter: [number, number] = [
+        parseFloat(selectedPosition.latitude),
+        parseFloat(selectedPosition.longitude),
+      ];
+
+      const calculatedZoom = 14 - (selectedPosition.magnitude ?? 7);
+      const newZoom = Math.max(2, Math.min(14, calculatedZoom));
+
+      map.setView(newCenter, newZoom, { animate: true });
+    }
+  }, [selectedPosition, map]);
 
   return null;
 };
 
 const Map: React.FC<MapProps> = ({ selectedPosition }) => {
-  const [center, setCenter] = useState<[number, number]>([9.0563, 7.4985]);
-  const [zoom, setZoom] = useState<number>(7); // default zoom
+  const initialCenter: [number, number] = selectedPosition
+    ? [parseFloat(selectedPosition.latitude), parseFloat(selectedPosition.longitude)]
+    : [9.0563, 7.4985];
 
-  useEffect(() => {
-    if (selectedPosition) {
-      setCenter([parseFloat(selectedPosition.latitude), parseFloat(selectedPosition.longitude)]);
-
-      // Convert magnitude to zoom:
-      const calculatedZoom = 14 - (selectedPosition.magnitude ?? 7); // smaller magnitude = zoomed in
-      setZoom(Math.max(2, Math.min(zoom, calculatedZoom))); // clamp between 2 and 14
-    }
-  }, [selectedPosition]);
+  const initialZoom = selectedPosition
+    ? Math.max(2, Math.min(14, 14 - (selectedPosition.magnitude ?? 7)))
+    : 7;
 
   return (
-    <MapContainer style={{ height: "420px" }} center={center} zoom={zoom} scrollWheelZoom={false}>
+    <MapContainer
+      key={`${initialCenter[0]}-${initialCenter[1]}`} // 👈 avoids re-init errors
+      style={{ height: "420px" }}
+      center={initialCenter}
+      zoom={initialZoom}
+      scrollWheelZoom={false}
+    >
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={center} icon={icon}>
-        <Popup>
-          {selectedPosition?.latitude}, {selectedPosition?.longitude}
-        </Popup>
-      </Marker>
-      <MapComponent center={center} zoom={zoom} />
+      {selectedPosition && (
+        <Marker position={initialCenter} icon={icon}>
+          <Popup>
+            {selectedPosition.latitude}, {selectedPosition.longitude}
+          </Popup>
+        </Marker>
+      )}
+      <MapUpdater selectedPosition={selectedPosition} />
     </MapContainer>
   );
 };

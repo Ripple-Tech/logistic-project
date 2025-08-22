@@ -1,7 +1,6 @@
+"use client";  // 👈 this makes it a client component
 
-import { FormatPrice } from "@/lib/FormatPrice";
 import moment from "moment";
-import { FaCcVisa, FaCcPaypal, FaCcMastercard } from "react-icons/fa";
 import { Reciept } from "@/lib/types";
 import Logo from '@/assets/logosaas.png';
 import Tick from '@/assets/good.png';
@@ -12,15 +11,23 @@ import Image from "next/image";
 import { Progress } from "@/components/ui/progress";
 import { getProgressPercentage } from "@/lib/progressHelper";
 import { InvoiceTimeline } from "@/components/invoice-timeline/InvoiceTimeline";
-//680f916f66d81b12193e46c9
+import Map from "@/components/map/Map";
+
 interface Props {
   id: string;
   invoice: Reciept;
   order: any;
 }
 
-export default async function InvoiceDetails({ id, invoice, order }: Props) {
+export default function InvoiceDetails({ id, invoice, order }: Props) {
   const amount = invoice.totalcharges;
+  const selectedPosition =
+    invoice.latitude !== undefined && invoice.longitude !== undefined
+      ? {
+          latitude: String(invoice.latitude),
+          longitude: String(invoice.longitude),
+        }
+      : null;
 
   return (
     <>
@@ -162,6 +169,21 @@ export default async function InvoiceDetails({ id, invoice, order }: Props) {
         <InvoiceTimeline timeline={order.timeline } />
        </div>
       </div>
+
+       {/* ✅ Map section */}
+      <div className="space-y-6 mt-10">
+        <h3 className="text-xl font-medium">Location</h3>
+        {selectedPosition ? (
+          <div className="mt-2">
+            <Map selectedPosition={selectedPosition} />
+          </div>
+        ) : (
+          <p className="mt-2 text-sm text-gray-500">
+            Coordinates not available for this shipment.
+          </p>
+        )}
+      </div>
+      
     </>
   );
 }
