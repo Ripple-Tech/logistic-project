@@ -35,7 +35,7 @@ export default function CreateClient() {
     if (data && data.success) {
        const success = 'New shipment Created';
        setSuccess(success);
-      router.push('/admin');
+      router.push('/dashboard');
     }
     else {
       const error = 'Failed to Create shipment';
